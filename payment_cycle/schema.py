@@ -3,17 +3,17 @@ import graphene_django_optimizer as gql_optimizer
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
 
-from core.gql.export_mixin import ExportableQueryMixin
 from core.schema import OrderedDjangoFilterConnectionField
 from core.utils import append_validity_filter
 from payment_cycle.apps import PaymentCycleConfig
 from payment_cycle.gql_mutations import ProcessBenefitPlanPaymentCycleMutation
+from payment_cycle.gql_queries import PaymentCycleGQLType
 from payment_cycle.models import PaymentCycle
 
 
-class Query(ExportableQueryMixin, graphene.ObjectType):
+class Query(graphene.ObjectType):
     payment_cycle = OrderedDjangoFilterConnectionField(
-        PaymentCycle,
+        PaymentCycleGQLType,
         orderBy=graphene.List(of_type=graphene.String),
         dateValidFrom__Gte=graphene.DateTime(),
         dateValidTo__Lte=graphene.DateTime(),
