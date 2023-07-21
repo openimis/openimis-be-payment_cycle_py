@@ -7,9 +7,9 @@ from payment_cycle.apps import PaymentCycleConfig
 from payment_cycle.services import PaymentCycleService
 
 
-class ProcessBenefitPlanPaymentCycleMutation:
+class ProcessBenefitPlanPaymentCycleMutation(OpenIMISMutation):
     _mutation_module = "payment_cycle"
-    _mutation_class = "ProcessPaymentCycleMutation"
+    _mutation_class = "ProcessBenefitPlanPaymentCycleMutation"
 
     class Input(OpenIMISMutation.Input):
         year = graphene.Int()

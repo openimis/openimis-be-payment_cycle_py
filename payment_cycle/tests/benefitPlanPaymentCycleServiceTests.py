@@ -17,8 +17,10 @@ class BenefitPlanPaymentCycleServiceTests(TestCase):
     service = None
 
     test_benefit_plan = None
-    test_individual = None
-    test_beneficiary = None
+    test_individual_1 = None
+    test_individual_2 = None
+    test_beneficiary_1 = None
+    test_beneficiary_2 = None
     test_payment_plan = None
 
     @classmethod
@@ -30,15 +32,25 @@ class BenefitPlanPaymentCycleServiceTests(TestCase):
         cls.test_benefit_plan = BenefitPlan(**benefit_plan_payload)
         cls.test_benefit_plan.save(username=cls.user.username)
 
-        cls.test_individual = Individual(**individual_payload)
-        cls.test_individual.save(username=cls.user.username)
+        cls.test_individual_1 = Individual(**individual_payload)
+        cls.test_individual_1.save(username=cls.user.username)
 
-        cls.test_beneficiary = Beneficiary(**{
+        cls.test_individual_2 = Individual(**{**individual_payload, 'first_name': 'tests2'})
+        cls.test_individual_2.save(username=cls.user.username)
+
+        cls.test_beneficiary_1 = Beneficiary(**{
             **beneficiary_payload,
-            "individual_id": cls.test_individual.id,
+            "individual_id": cls.test_individual_1.id,
             "benefit_plan_id": cls.test_benefit_plan.id
         })
-        cls.test_beneficiary.save(username=cls.user.username)
+        cls.test_beneficiary_1.save(username=cls.user.username)
+
+        cls.test_beneficiary_2 = Beneficiary(**{
+            **beneficiary_payload,
+            "individual_id": cls.test_individual_2.id,
+            "benefit_plan_id": cls.test_benefit_plan.id
+        })
+        cls.test_beneficiary_2.save(username=cls.user.username)
 
         cls.test_payment_plan = PaymentPlan(**{
             **payment_plan_payload,
@@ -53,5 +65,5 @@ class BenefitPlanPaymentCycleServiceTests(TestCase):
 
         self.assertTrue(output)
         self.assertTrue(output['success'])
-        self.assertEqual(1, Bill.objects.count())
+        self.assertEqual(2, Bill.objects.count())
         self.assertEqual(1, PaymentCycle.objects.count())

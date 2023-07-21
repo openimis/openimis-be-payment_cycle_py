@@ -39,4 +39,4 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    process_benefit_plan_payment_cycle = ProcessBenefitPlanPaymentCycleMutation.Input()
+    process_benefit_plan_payment_cycle = ProcessBenefitPlanPaymentCycleMutation.Field()
