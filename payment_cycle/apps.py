@@ -4,6 +4,9 @@ MODULE_NAME = 'payment_cycle'
 
 DEFAULT_CONFIG = {
     'gql_query_payment_cycle_perms': ['200001'],
+    'gql_create_payment_cycle_perms': ['200002'],
+    'gql_update_payment_cycle_perms': ['200003'],
+    'gql_delete_payment_cycle_perms': ['200004'],
     'gql_mutation_process_payment_cycle_perms': ['200005']
 }
 
@@ -13,6 +16,9 @@ class PaymentCycleConfig(AppConfig):
     name = MODULE_NAME
 
     gql_query_payment_cycle_perms = None
+    gql_create_payment_cycle_perms = None
+    gql_update_payment_cycle_perms = None
+    gql_delete_payment_cycle_perms = None
     gql_mutation_process_payment_cycle_perms = None
 
     def ready(self):

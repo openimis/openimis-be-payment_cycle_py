@@ -16,7 +16,10 @@ It is dedicated to be deployed as a module of [openimis-be_py](https://github.co
 - BenefitPlanPaymentCycleService - Service customized for Benefit Plan payment cycle calculation
 
 ## Configuration options (can be changed via core.ModuleConfiguration)
-* gql_query_payment_cycle_perms: required rights to call paymentCycle GraphQL Query (default: ["200001"])
+* gql_query_payment_cycle_perms: required rights to query PaymentCycle (default: ["200001"])
+* gql_create_payment_cycle_perms: required rights to create PaymentCycle (default: ["200002"])
+* gql_update_payment_cycle_perms: required rights to update PaymentCycle (default: ["200003"])
+* gql_delete_payment_cycle_perms: required rights to delete PaymentCycle (default: ["200004"])
 * gql_mutation_process_payment_cycle_perms: required rights to call processBenefitPlanPaymentCycle GraphQL Mutation (default: ["200005"])
 
 
