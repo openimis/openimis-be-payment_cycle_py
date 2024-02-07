@@ -18,7 +18,6 @@ class Query(graphene.ObjectType):
         dateValidFrom__Gte=graphene.DateTime(),
         dateValidTo__Lte=graphene.DateTime(),
         applyDefaultValidityFilter=graphene.Boolean(),
-        client_mutation_id=graphene.String(),
         search=graphene.String(),
     )
 

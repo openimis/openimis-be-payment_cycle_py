@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-from core.models import HistoryModel, UUIDModel, ObjectMutation, MutationLog
+from core.models import HistoryModel
 
 
 class PaymentCycle(HistoryModel):
