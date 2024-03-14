@@ -1,1 +1,1 @@
-from payment_cycle.tests.PaymentCycleServiceTests import PaymentCycleServiceTests
+from payment_cycle.tests.paymentCycleServiceTests import PaymentCycleServiceTests
