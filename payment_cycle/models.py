@@ -19,6 +19,9 @@ class PaymentCycle(HistoryModel):
     status = models.CharField(max_length=255, choices=PaymentCycleStatus.choices, default=PaymentCycleStatus.PENDING)
     type = models.ForeignKey(ContentType, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
 
+    def __str__(self):
+        return f'Payment Cycle {self.code}: from {self.start_date} to {self.end_date}'
+
 
 class PaymentCycleMutation(UUIDModel, ObjectMutation):
     payment_cycle = models.ForeignKey(PaymentCycle, models.DO_NOTHING, related_name='mutations')
