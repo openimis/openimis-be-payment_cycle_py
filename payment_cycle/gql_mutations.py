@@ -16,7 +16,7 @@ class CreatePaymentCycleInput(OpenIMISMutation.Input):
         ACTIVE = PaymentCycle.PaymentCycleStatus.ACTIVE
         SUSPENDED = PaymentCycle.PaymentCycleStatus.SUSPENDED
 
-    code = graphene.String(required=True)
+    code = graphene.String(required=False)
     start_date = graphene.Date(required=True)
     end_date = graphene.Date(required=True)
     status = graphene.Field(PaymentCycleEnum, required=True)

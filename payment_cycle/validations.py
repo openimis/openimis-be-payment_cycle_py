@@ -19,11 +19,6 @@ class PaymentCycleValidation(BaseModelValidation,
     @classmethod
     def validate_update(cls, user, **data):
         cls.validate_object_exists(data.get('id', None))
-        code = data.get('code', None)
-        id_ = data.get('id', None)
-
-        if code:
-            cls.validate_unique_code_name(code, id_)
 
 
 def validate_payment_cycle_unique_code(code, uuid=None):

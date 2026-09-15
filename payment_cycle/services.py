@@ -6,6 +6,7 @@ from core.signals import register_service_signal
 from payment_cycle.apps import PaymentCycleConfig
 from payment_cycle.models import PaymentCycle
 from payroll.models import BenefitConsumption, Payroll
+from payment_cycle.utils import generate_payment_cycle_code
 from payment_cycle.validations import PaymentCycleValidation
 from tasks_management.services import UpdateCheckerLogicServiceMixin, CreateCheckerLogicServiceMixin
 
@@ -18,10 +19,27 @@ class PaymentCycleService(BaseService, UpdateCheckerLogicServiceMixin, CreateChe
 
     @register_service_signal('payment_cycle_service.create')
     def create(self, obj_data):
+        # code is always server-generated, never accepted from the client
+        obj_data = {
+            **obj_data,
+            'code': generate_payment_cycle_code(obj_data.get('start_date')),
+        }
         return super().create(obj_data)
+
+    def create_create_task(self, obj_data):
+        # generate the code once, at task-creation time, so it is what the
+        # approver sees and what gets persisted on task completion - avoids
+        # collisions between multiple pending create tasks
+        obj_data = {
+            **obj_data,
+            'code': generate_payment_cycle_code(obj_data.get('start_date')),
+        }
+        return super().create_create_task(obj_data)
 
     @register_service_signal('payment_cycle_service.update')
     def update(self, obj_data):
+        # code is server-generated and frozen after creation
+        obj_data = {k: v for k, v in obj_data.items() if k != 'code'}
         return super().update(obj_data)
 
     @register_service_signal('payment_cycle_service.delete')
