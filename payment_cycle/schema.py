@@ -51,6 +51,12 @@ class Query(graphene.ObjectType):
             wait_for_mutation(client_mutation_id)
             filters.append(Q(mutations__mutation__client_mutation_id=client_mutation_id))
 
+        # The PaymentCyclePicker sends what the user types here and shows only the first
+        # page: ignoring it hid every cycle beyond that page.
+        search = kwargs.get("search")
+        if search:
+            filters.append(Q(code__icontains=search))
+
         Query._check_permissions(info.context.user, PaymentCycleConfig.gql_query_payment_cycle_perms)
         query = PaymentCycle.objects.filter(*filters)
         return gql_optimizer.query(query, info)
